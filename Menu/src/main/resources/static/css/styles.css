@@ -1,0 +1,72 @@
+.header-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+html {
+min-height: 100%;
+}
+
+img{
+  weight: 100%;
+  height: 100%;
+  }
+body {
+	background-image: url("\\img\\background6.jpg");
+  	background-color: pink;
+  	color: white;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+  margin-top:150px;
+  color: blue;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.home-container{
+	margin-top:20px;
+}
+.well{
+	height: 100%;
+	background-image: url("\\img\\background9.jpg");
+	color white;
+	font-size: 20pt;
+	
+}
+.well2{
+	height: 170px;
+	width: 170px;
+	background-image: url("\\img\\recipewallpaper1.png");
+	color white;
+	font-size: 20pt;
+}
