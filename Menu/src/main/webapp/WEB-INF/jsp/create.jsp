@@ -33,21 +33,14 @@ aria-expanded="false" br="navbar">
 </ul>
 </div><!-- nav-collapse -->
 </div>
-</nav> 
-
-
-
-
-<div class="row">
-			<div class="col-sm-3">		
-				<div class="well5">
-<h1>Diet Destricter</h1>
-</div></div></div>
-
-<!--start******************************************************************************
+</nav>
 <div class="img">
 	<p><a href="https://www.bodybuilding.com/fun/changingshape5.htm"><img border="0" alt="chart" src="\\img\\chart.png" width="200px" height="200px"></a></p>
-</div>	  
+</div>	
+	
+
+<!-- start ****************************************************************************** -->
+
 <h1></h1>						
 
 <div class="container home-container">
@@ -58,8 +51,8 @@ aria-expanded="false" br="navbar">
 		<div class="row">
 			<div class="col-sm-3">		
 				<div class="well2">
-					<br>-->
-					<!-- picture is here from css page
+					<br>
+					<!-- picture is here from css page-->
 				</div>	
 			</div>
 				<div class="col-sm-9">
@@ -68,7 +61,8 @@ aria-expanded="false" br="navbar">
 					<form:input class="inputBoxes" path="recipeName" placeholder="Enter recipe name"/><br>
 					<form:input class="inputBoxes" path="text" placeholder="Enter recipe text"/>
 					
-					<!-- dropdown below 
+					<!-- dropdown below -->
+					<form:select path="etc.ingredientName" items="${ingredients}" />
 				
 					
 					<div class="dropdown">
@@ -76,10 +70,10 @@ aria-expanded="false" br="navbar">
 					  <div id="myDropdown" class="dropdown-content">
 					  	<c:forEach var="ingredient" items="${ingredients}">
 					    <a href="ingredientName"><c:out value="${ingredient.ingredientName}"></c:out></a>
-					    </c:forEach>-->
+					    </c:forEach>
 					    
 					    
-					    <!-- dropdown above 
+					    <!-- dropdown above -->
 					  </div>
 					</div>
 					</form:form>
@@ -104,7 +98,7 @@ aria-expanded="false" br="navbar">
 			
 		</div>
 	</div>
-</div> -->
+</div>
 <!-- end ****************************************************************************** -->
 </body>
 </html>

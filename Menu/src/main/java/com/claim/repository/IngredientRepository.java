@@ -1,13 +1,18 @@
 package com.claim.repository;
 
-import java.util.List;
+import java.util.ArrayList;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.claim.entity.Ingredient;
+
 @Repository
-public class IngredientRepository {
-	//@Query("Select I from Ingredient I where  IngredientId :ingredientlist order by createdDate DESC")
-	//public List<Ingredient> findPost(@Param("ingredientlist") String[] ingredientList);
+public interface IngredientRepository extends JpaRepository<Ingredient, String> {
+	@Query("Select I from Ingredient I")
+	public ArrayList<Ingredient> getAllIngredient();
+	
+		
+	
 }

@@ -1,84 +1,111 @@
 package com.claim.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table
 public class Recipe { 
+	@Override
+	public String toString() {
+		return recipeName + "Cal=" + totalCalories + ", Fat=" + totalFat
+				+ ", Protein=" + totalProtein + ", Carbs=" + totalCarbs;
+	}
+
 	@Id
 	@Column
 	private String recipeName;
 	@Column
-	private int totalCalories;
+	private double totalCalories;
 	@Column
-	private int totalFat;
+	private double totalFat;
 	@Column
-	private int totalProtein;
+	private double totalProtein;
 	@Column
-	private int totalCarbs;
+	private double totalCarbs;
 	@Column
-	private int totalVolume;
+	private double totalVolume;
 	@Column 
 	private String text;
 	@Column
 	private String email;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
+	private List<Etcetera> etceteras = new ArrayList<Etcetera>();
 	
+	public String getEmail() {
+		return email;
+	}
 	
-	@OneToMany
-	@JoinColumn(name="email", insertable=false, updatable=false)
 	public String getRecipeName() {
 		return recipeName;
-	}
-	public void setRecipeName(String recipeName) {
-		this.recipeName = recipeName;
-	}
-	public int getTotalCalories() {
-		return totalCalories;
-	}
-	public void setTotalCalories(int totalCalories) {
-		this.totalCalories = totalCalories;
-	}
-	public int getTotalFat() {
-		return totalFat;
-	}
-	public void setTotalFat(int totalFat) {
-		this.totalFat = totalFat;
 	}
 	public String getText() {
 		return text;
 	}
-	public void setText(String text) {
-		this.text = text;
+	public double getTotalCalories() {
+		
+		return totalCalories;
 	}
-	public String getEmail() {
-		return email;
+	public double getTotalCarbs() {
+		return totalCarbs;
+	}
+	public double getTotalFat() {
+		return totalFat;
+	}
+	public double getTotalProtein() {
+		return totalProtein;
+	}
+	public double getTotalVolume() {
+		return totalVolume;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getTotalProtein() {
-		return totalProtein;
+	public void setRecipeName(String recipeName) {
+		this.recipeName = recipeName;
 	}
-	public void setTotalProtein(int totalProtein) {
-		this.totalProtein = totalProtein;
+	public void setText(String text) {
+		this.text = text;
 	}
-	public int getTotalCarbs() {
-		return totalCarbs;
+	public void setTotalCalories(double totalCalories) {
+		this.totalCalories = totalCalories;
 	}
-	public void setTotalCarbs(int totalCarbs) {
+	
+	public void setTotalCarbs(double totalCarbs) {
+		
 		this.totalCarbs = totalCarbs;
 	}
-	public int getTotalVolume() {
-		return totalVolume;
-	}
-	public void setTotalVolume(int volume) {
-		this.totalVolume = volume;
+	
+	public void setTotalFat(double totalFat) {
+		
+		this.totalFat = totalFat;
 	}
 
+	public void setTotalProtein(double totalProtein) {
+		
+		this.totalProtein = totalProtein;
+	}
+	
+	public void setTotalVolume(double totalVolume) {
+		this.totalVolume = totalVolume;
+	}
+
+	public List<Etcetera> getEtceteras() {
+		return etceteras;
+	}
+
+	public void setEtceteras(List<Etcetera> etceteras) {
+		this.etceteras = etceteras;
+	}
+
+	
 }

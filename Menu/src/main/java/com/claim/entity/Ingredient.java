@@ -12,55 +12,55 @@ public class Ingredient {
 	@Column
 	private String ingredientName;
 	@Column
-	private int calorie;
+	private double calorie;
 	@Column
-	private int fat;
+	private double fat;
 	@Column
-	private int protein;
+	private double protein;
 	@Column
-	private int carb;
+	private double carb;
 	@Column
-	private int grams;
+	private double grams;
 	@Column
-	private int volume;
+	private double volume;
+	public double getCalorie() {
+		return calorie;
+	}
+	public double getCarb() {
+		return carb;
+	}
+	public double getFat() {
+		return fat;
+	}
+	public double getGrams() {
+		return grams;
+	}
 	public String getIngredientName() {
 		return ingredientName;
 	}
-	public void setIngredientName(String ingredientName) {
-		this.ingredientName = ingredientName;
+	public double getProtein() {
+		return protein;
 	}
-	public int getCalorie() {
-		return calorie;
+	public double getVolume() {
+		return volume;
 	}
 	public void setCalorie(int calorie) {
 		this.calorie = calorie;
 	}
-	public int getFat() {
-		return fat;
+	public void setCarb(int carb) {
+		this.carb = carb;
 	}
 	public void setFat(int fat) {
 		this.fat = fat;
 	}
-	public int getProtein() {
-		return protein;
-	}
-	public void setProtein(int protein) {
-		this.protein = protein;
-	}
-	public int getCarb() {
-		return carb;
-	}
-	public void setCarb(int carb) {
-		this.carb = carb;
-	}
-	public int getGrams() {
-		return grams;
-	}
 	public void setGrams(int grams) {
 		this.grams = grams;
 	}
-	public int getVolume() {
-		return volume;
+	public void setIngredientName(String ingredientName) {
+		this.ingredientName = ingredientName;
+	}
+	public void setProtein(int protein) {
+		this.protein = protein;
 	}
 	public void setVolume(int volume) {
 		this.volume = volume;

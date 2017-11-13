@@ -1,12 +1,11 @@
 package com.claim.controller;
 
-import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,11 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.claim.entity.Etcetera;
 import com.claim.entity.Ingredient;
 import com.claim.entity.Person;
-import com.claim.entity.Post;
 import com.claim.entity.Recipe;
 import com.claim.service.EtceteraService;
+import com.claim.service.IngredientService;
 import com.claim.service.PersonService;
-import com.claim.service.PostService;
 import com.claim.service.RecipeService;
 import com.claim.service.SendMail;
 
@@ -35,26 +33,122 @@ public class UserController {
 	private PersonService personService;
 	
 	@Autowired
-	private PostService postService;
-	
-	@Autowired
 	private RecipeService recipeService;
 	
 	@Autowired
-	private EtceteraService ecteteraService;
+	private EtceteraService etceteraService;
+	
+	@Autowired
+	private IngredientService ingredientService;
 	
 	@Autowired
 	private SendMail sendMail;
 	
-	@RequestMapping("/")
-	public String index() {
-		return "index"; //tell spring to find and display index
+	@RequestMapping(value="/addrecipe", method = RequestMethod.GET) 
+	public ModelAndView addrecipe(HttpSession session) {
+		List<Ingredient> ingredients = ingredientService.getAllIngredient();
+		session.setAttribute("ingredients", ingredients);
+		return new ModelAndView("addRecipe", "recipe", new Recipe());
 	}
-	@RequestMapping(value="/login", method = RequestMethod.GET) 
-	public ModelAndView login(Model model) {
-	//public String login() {
-		return new ModelAndView("login", "userLogin", new Person());
+	
+	@RequestMapping(value="/addingredient", method = RequestMethod.GET) 
+	public ModelAndView addingredient(HttpSession session) {
+		List<Ingredient> ingredients = ingredientService.getAllIngredient();
+		session.setAttribute("ingredients", ingredients);
+		return new ModelAndView("addIngredient", "ingredient", new Ingredient());
 	}
+	
+	@RequestMapping(value="/createRecipe", method = RequestMethod.POST) 
+	public ModelAndView createRecipe(Model model, @ModelAttribute("recipe")Recipe recipe, HttpSession session) {
+		session.setAttribute("added", "New Recipe ADDED!!!!");
+		recipeService.addRecipe(recipe);
+		
+		
+		
+		/*Code to send to home page*/
+		List<Recipe> recipes = recipeService.getAllRecipes();
+		session.setAttribute("recipies",recipes);
+		return new ModelAndView("home");
+	}
+	
+	
+	@RequestMapping(value="/saveRecipe", method = RequestMethod.POST)
+	public ModelAndView addrecipe(Model model, @RequestParam("newI") String value, HttpSession session) {
+		String rname = (String) session.getAttribute("rname");	
+		System.out.println("Adding Ingredient: "+value+" to recipe "+ rname);
+		Recipe recipe = recipeService.getRecipe(rname);
+		
+		Ingredient ingredient = ingredientService.find(value);
+		Etcetera etc = new Etcetera();
+		etc.setIngredientName(ingredient.getIngredientName());
+		etc.setIngredientCalories(ingredient.getCalorie());
+		etc.setIngredientCarbs(ingredient.getCarb());
+		etc.setIngredientFat(ingredient.getFat());
+		etc.setIngredientProtein(ingredient.getProtein());
+		etc.setIngredientGrams(ingredient.getGrams());
+		etc.setIngredientVolume(4);
+		recipe.getEtceteras().add(etc);
+		
+		double totalCarbs =0;
+		for (Etcetera etcetra : recipe.getEtceteras()) {
+			totalCarbs += etcetra.getIngredientCarbs();
+		}
+		recipe.setTotalCarbs(totalCarbs);
+		
+		double totalCal =0;
+		for (Etcetera etcetra : recipe.getEtceteras()) {
+			totalCal += etcetra.getIngredientCalories();
+		}
+		recipe.setTotalCalories(totalCal);
+		
+		double totalFat =0;
+		for (Etcetera etcetra : recipe.getEtceteras()) {
+			totalFat += etcetra.getIngredientFat();
+		}
+		recipe.setTotalFat(totalFat);
+		
+		double totalPro =0;
+		for (Etcetera etcetra : recipe.getEtceteras()) {
+			totalPro += etcetra.getIngredientProtein();
+		}
+		
+		recipe.setTotalProtein(totalPro);
+		
+		recipeService.addRecipe(recipe);
+		List<Recipe> recipes = recipeService.getAllRecipes();
+		session.setAttribute("recipies",recipes);
+					
+		return new ModelAndView("home");
+	}
+	
+	
+	@RequestMapping(value="/editRecipe", method = RequestMethod.GET)
+	public ModelAndView editRecipe(Model model, @RequestParam("rname")String rname, HttpSession session) {
+			Recipe recipe = recipeService.getRecipe(rname);
+			session.setAttribute("rname", rname);
+			ArrayList<Ingredient> ingredients = ingredientService.getAllIngredient();
+			session.setAttribute("ingredients", ingredients);
+			System.out.println("List of ingredients: "+ingredients.size());
+			return new ModelAndView("editRecipe",  "recipe", recipe);
+	}
+	/*	this.etceteraService.saveEtcetera(newEtcetera);
+			Recipe myRecipe  = new Recipe();
+			myRecipe.setRecipeName(newEtcetera.getRecipeName());
+			myRecipe.setEmail("");
+			recipeService.addRecipe(myRecipe);
+			List<Ingredient> ingredients = ingredientService.getAllIngredient();
+			session.setAttribute("ingredients", ingredients);
+			List<Recipe> recipes = recipeService.getAllRecipes();
+			session.setAttribute("recipes", recipes);
+			return new ModelAndView("index",  "makerecipe", new Recipe()); */
+	
+	@RequestMapping(value="/addingredient", method = RequestMethod.POST)
+	public ModelAndView addrecipe(Model model, @ModelAttribute("ingredient") Etcetera newEtcetera, HttpSession session) {
+			etceteraService.saveEtcetera(newEtcetera);
+			session.setAttribute("ingredientName", newEtcetera.getIngredientName());
+			return new ModelAndView("addIngredient",  "ingredient", new Etcetera());
+	}
+	
 	
 	@RequestMapping(value="/login", method = RequestMethod.POST) 
 	public ModelAndView handel(Model model, @ModelAttribute("userLogin") Person userLogin, 
@@ -63,31 +157,31 @@ public class UserController {
 		Person p = this.personService.login(userLogin.getEmail(), userLogin.getPassword());
 		if(p !=null) {
 			session.setAttribute("loggedInUser", p);
-			ArrayList<String> recipeList = new ArrayList<String>();
-			recipeList.add(p.getEmail());
-			List<Recipe> recipes = recipeService.getAllRecipe(recipeList);
-			ArrayList<String> etceteraList = new ArrayList<String>(); ///etc
-			
-			for (Recipe rec : recipes) {
-				etceteraList.add(rec.getRecipeName());//etc
-			}
-			
-			List<Etcetera> ect = null;
-			if(etceteraList!= null) {
-				 ect = ecteteraService.findAllEtcetera(etceteraList); //etc
-				 session.setAttribute("etceteraList", ect);
-			}
-			
-			System.out.println("Length of list: "+recipeList.size());
-			session.setAttribute("recipies", recipes);
-			
-			
-			return new ModelAndView("home", "recipie", new Recipe());
+			List<Recipe> recipes = recipeService.getAllRecipes();
+			session.setAttribute("recipies",recipes);
+						
+			return new ModelAndView("home");
 		}else {
 			model.addAttribute("Login error", "username or password invalid");
 			return new ModelAndView("login");
 			}
 		}
+	@RequestMapping("/")
+	public ModelAndView index(HttpSession session) {
+		//
+		List<Ingredient> ingredients = ingredientService.getAllIngredient();
+		session.setAttribute("ingredients", ingredients);
+		
+		return new ModelAndView("index","makerecipe", new Recipe()); //tell spring to find and display index
+	}
+	
+	@RequestMapping(value="/login", method = RequestMethod.GET) 
+	public ModelAndView login(Model model) {
+	//public String login() {
+		return new ModelAndView("login", "userLogin", new Person());
+	}
+	
+	
 	@RequestMapping(value="/post", method = RequestMethod.POST)
 	public ModelAndView post(Model model, @ModelAttribute("post") Recipe recipe, HttpSession session) {
 		ArrayList<String> recipeList = new ArrayList<String>();
@@ -95,30 +189,22 @@ public class UserController {
 		recipeList.add(recipe.getEmail());
 		etceteraList.add(recipe.getRecipeName());//etc
 		
-		List<Recipe> recipes = recipeService.getAllRecipe(recipeList);
-		List<Etcetera> ect = ecteteraService.findAllEtcetera(etceteraList); //etc
+		List<Recipe> recipes = recipeService.getAllRecipes();
+		List<Etcetera> ect = etceteraService.findAllEtcetera(etceteraList); //etc
+		
+		
 		
 		System.out.println("Length of list: "+recipeList.size());
 		System.out.println("Length of etc list: "+etceteraList.size());
 		session.setAttribute("etceteraList", etceteraList);
 		//this.addUserPost(model,  post.getEmail());
 		return new ModelAndView("home", "recipies", recipes ); 
-				//new ModelAndView("home", "ect", ect); //maybe duplication
-		
-		
-		
+				//new ModelAndView("home", "ect", ect); //maybe duplication	
 	}
 	
 	@RequestMapping(value="/signup", method = RequestMethod.GET) 
 	public ModelAndView signup() {
 		return new ModelAndView("signup", "userSignup", new Person());
-		
-	}
-	
-	@RequestMapping(value="/recipe", method = RequestMethod.GET) 
-	public String getAddRecipeForm(Model model) {
-		model.addAttribute("ingredient", new Ingredient());
-		return "recipe";
 	}
 	
 	@RequestMapping(value="/signup", method = RequestMethod.POST) 
@@ -126,10 +212,9 @@ public class UserController {
 		this.personService.signUp(newUser);
 		this.sendMail.sendMail(newUser.getEmail(), "Welcome", "You are now signed up for Diet Destricter, "
 				+ "if you wish to contact me, my email address is RoyLWright@gmail.com");
-		return login(model); 
-				
+		return login(model); 			
 	}
-	
+
 	@RequestMapping(value="/upload", method = RequestMethod.POST)
 	public String upload(@RequestParam("file") MultipartFile file, HttpSession session, Model model) {
 		
@@ -138,27 +223,21 @@ public class UserController {
 					String name = file.getOriginalFilename();
 					String basepath = "src\\main\\resources\\static\\img\\";
 					String path = basepath + p.getEmail()+"\\"+name;
-					File fileToUpload = new File(path);
 					String userPath = "\\img\\"+p.getEmail()+"\\"+name;
 					
-					FileUtils.writeByteArrayToFile(fileToUpload, file.getBytes());
 					
 					p.setProfilePic(userPath);
 					personService.signUp(p);
 					
 				}catch(Exception e){	
 			}
-			this.addUserPost(model, p.getEmail());
+			
 			return "home";
 	}
-	private void addUserRecipe(Model model, String recipeName) {
-		model.addAttribute("etcetera", new Etcetera());
-		//model.addAttribute("ect", etceteraService.saveEtcetera(recipeName));
-	}
-	
-	private void addUserPost(Model model, String email) {
-		model.addAttribute("post", new Post());
-		model.addAttribute("posts", postService.findMyPost(email));
+	@RequestMapping(value="/menu", method = RequestMethod.GET) 
+	public ModelAndView menu() {
+			
+		return new ModelAndView();
 	}
 	
 }

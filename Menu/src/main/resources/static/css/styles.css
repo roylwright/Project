@@ -12,10 +12,15 @@ img{
   height: 100%;
   }
 body {
-	background-image: url("\\img\\background6.jpg");
+	background-image: url("\\img\\background10.jpg");
+    -webkit-background-size: cover;
+       -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
   	background-color: pink;
-  	color: white;
+  	color: black; 	
 }
+
 
 .form-signin {
   max-width: 330px;
@@ -54,19 +59,91 @@ body {
   border-top-right-radius: 0;
 }
 .home-container{
-	margin-top:20px;
+	margin-top:50px;
 }
 .well{
 	height: 100%;
-	background-image: url("\\img\\background9.jpg");
-	color white;
-	font-size: 20pt;
-	
+	background-image: url("\\img\\background13.jpg");
+	color: blue;
+	font-size: 20pt;	
 }
 .well2{
 	height: 170px;
 	width: 170px;
 	background-image: url("\\img\\recipewallpaper1.png");
-	color white;
+	color: white;
 	font-size: 20pt;
 }
+.well3{
+	height: 170px;
+	width: 170px;
+	background-image: url("\\img\\recipewallpaper1.png");
+	color: white;
+	font-size: 20pt;
+}
+.well4{
+	height: 100%;
+	background-image: url("\\img\\background11.jpg");
+	color: blue;
+	font-size: 20pt;
+}
+.well5{
+	margin: auto;
+	width: 50%;
+	border: 3px;
+	align: center;
+	padding: 10px;
+}
+
+.inputBoxes
+{
+	color: black;
+}
+.notinput
+{
+	color: white;
+}
+/* Dropdown Button */
+.dropbtn {
+    background-color: #0ad612;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #3e8e41;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}

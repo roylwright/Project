@@ -19,15 +19,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages="com.claim.repository")
 public class DatabaseConfig {
 	
+	@Bean(name="transactionManager")
+	public PlatformTransactionManager barTransactionManager(EntityManagerFactory factory) {
+		return new JpaTransactionManager(factory);
+	}
 	@Bean
 	public LocalContainerEntityManagerFactoryBean 
 		entityManagerFactory(EntityManagerFactoryBuilder builder,DataSource dataSource) {
 		return builder.dataSource(dataSource)
 				.packages("com.claim.entity").build();
-	}
-	@Bean(name="transactionManager")
-	public PlatformTransactionManager barTransactionManager(EntityManagerFactory factory) {
-		return new JpaTransactionManager(factory);
 	}
 
 }

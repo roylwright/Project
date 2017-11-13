@@ -86,8 +86,9 @@
 				</div>
 			</div>
 		</div>
-
-
+<!-- like button below -->
+<button type="button" class="btn btn-default btn-sm">
+<span class="glphicon glyphicon-thumbs-up"></span>like</button>
 
 								<button type="submit" class="btn btn-default btn-sm">
 									<span class="glyphicon"></span>Post

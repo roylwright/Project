@@ -13,9 +13,12 @@ import com.claim.entity.Recipe;
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, String> {
 		
-		@Query("Select R from Recipe R where R.email IN :recipelist OR R.email=''")
-		public ArrayList<Recipe> getAllRecipie(@Param("recipelist") ArrayList<String> recipeList);
-}
+		@Query("Select R from Recipe R")
+		public  ArrayList<Recipe> getAllRecipe();
+
+		/*@Query("Select R from Recipe R where R.email IN :recipelist OR R.email=''")
+		public ArrayList<Recipe> getAllRecipe(@Param("recipelist") ArrayList<String> recipeList);
+*/}
 
 	
 	

@@ -27,7 +27,9 @@
 	</div>
 	<div id="navbar" class="collaspe navbar-collapse">
 	<ul class="nav navbar-nav navbar-right">
-	<li class="active"><a href="/">Home</a></li>
+	<li class="active"><a href="/addrecipe">add 
+	recipe</a></li>
+	<li class="active"><a href="/menu">menu plans</a></li>
 	<li><a class="glyphicon glyphicon-log-in" href="#">Log out</a></li>
 	<li><a class="glyphicon glyphicon-user" href="#">Settings</a></li>
 	</ul>
@@ -36,37 +38,89 @@
 <div class="container home-container">
 	<div class="container text-container">
 		<div class="row">
-		<br><br><br>		
+		<br><br><br><!-- **********start of display loop************************************* -->	
 		<c:forEach var="rec" items="${recipies}">
 		<div class="row">
-			<div class="col-sm-3">		
+			<div class="col-sm-2">		
 				<div class="well2">
 					<br>
 					<!-- picture is here from css page-->
 				</div>	
 			</div>
-			<div class="col-sm-9">
-				<div class="well">
-				<p><c:out value="${rec.recipeName}"></c:out></p>
-					<c:forEach var="etcetera" items="${etceteraList}"> 
-						<c:if test = "${etcetera.recipeName==rec.recipeName}">
-						<c:if test = "${etcetera.ingredientName !='Total'}">
-						<c:out value="${etcetera}"></c:out>
-						</c:if>
-						<c:if test = "${etcetera.ingredientName =='Total'}">
-						<c:out value="${etcetera} ${etcetera.ingredientCalories} Calories ${etcetera.ingredientProtein}g Protein ${etcetera.ingredientCarbs}g Carbs ${etcetera.ingredientFat}g Fat"></c:out>
-						</c:if>
+				<div class="col-sm-10">
+					<div class="well">
+					<h1><c:out value="${rec.recipeName}"></c:out></h1><br>
+					Calories:<c:out value="${rec.totalCalories}"></c:out>
+					<c:out value="${rec.totalFat}"></c:out>g Fat
+					<c:out value="${rec.totalCarbs}"></c:out>g Carbs
+					<c:out value="${rec.totalProtein}"></c:out>g Protein<br>
+						<c:forEach var="etcetera" items="${rec.etceteras}"> 
+										<c:choose>
+											<c:when test="${etcetera.ingredientName ne 'Total'}">
+												<c:out value="${etcetera.ingredientName} ${etcetera.ingredientVolume} oz"></c:out>
+												<br>
+											</c:when>
+											<c:otherwise>
+											
+												<c:out value="${etcetera.ingredientName}"></c:out>
+												<c:out value="${etcetera.ingredientCalories}"> </c:out>Cal,
+												<c:out value="${etcetera.ingredientProtein}"></c:out>g Protein, 
+												<c:out value="${etcetera.ingredientCarbs}"></c:out>g Carbs,
+												<c:out value="${etcetera.ingredientFat}"></c:out>  g Fat
+											</c:otherwise>
+										</c:choose>
+						</c:forEach><!-- End for each loop inner display -->
 						
-						</c:if>
-					</c:forEach>
-				<p><c:out value="${rec.text}"></c:out><p>
-				</div>
-				
-				<button type="button" class="btn btn-default btn-sm">
-				<span class="glphicon glyphicon-thumbs-up"></span>like</button>
+						<%-- <c:out value="Total  ${person.calories} Cal, ${person.protein}g Protein, ${person.carbs}g Carbs, ${person.fat}g Fat"></c:out>
+						<h2>Goal 665.0 Cal,  50.0g Protein,  90.0g Carbs,  25.0g Fat</h2>
+ --%>					<p><c:out value="${rec.text}"></c:out><p>
+ 
+ 						<p><a href="editRecipe?rname=${rec.recipeName}">Edit Recipe</a><p>
+					</div>
 				</div>
 			</div>
-			</c:forEach>
+			</c:forEach><!-- end of for-each loop do not remove!!!!!!!!!!!!!****************** -->
+		
+		
+	<!-- 	
+		<div class="row">
+			<div class="col-sm-3">		
+				<div class="well2">
+					<br>
+					picture is here from css page
+				</div>	
+			</div>
+				<div class="col-sm-9">
+					<div class="well">
+					<h2>Ultimate cheeseburger combo</h2>
+					<h2>ultime cheeseburger</h2>
+					<h2>medium fries</h2>
+					<h2>medium soda</h2>
+					<h2>Total:  1360.0 Cal,  50.0g Protein,  131.0g Carbs,  70.0g Fat</h2>
+					<h2>Your goal: 665 Cal,    50g Protein,     90g Carbs,    25g Fat</h2>
+					</div>
+				</div>
+			</div>
+		
+		<div class="row">
+			<div class="col-sm-3">		
+				<div class="well2">
+					<br>
+					picture is here from css page
+				</div>	
+			</div>
+				<div class="col-sm-9">
+					<div class="well">
+					<h2>Baconater combo</h2>
+					<h2>baconator sandwich</h2>
+					<h2>medium fries</h2>
+					<h2>medium soda</h2>
+					<h2>Total:  1640.0 Cal,  75.0g Protein,  121.0g Carbs,  85.0g Fat</h2>
+					<h2>Your goal: 665 Cal,    50g Protein,     90g Carbs,    25g Fat</h2>
+					</div>
+				</div>
+			</div>
+		 -->
 		</div>
 	</div>
 </div>			
