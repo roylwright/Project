@@ -1,5 +1,6 @@
 # Project
 Place for larger projects, currently (until november) class projects
+
 Menu *was* my capstone project. While it worked, I would not call it my finest hour. I plan to rewrite this (over the next few days/week/month?) and fix a few issues. 
 1) I had hoped to add an API to update my ingredients database, this became unworkable because most of that data did not include volume for items, making many recipe elements useless. How much is a cup in grams? Depends too much on the density of the material i question.
 2) My knowledge changed, radically, while I was writing the project. Instead of making a separate table for ingredient in a recipe I would have made the linking table include a 'total_volume' element, to scale up individual ingredients, which would have forced me to write code to modify the rest of the totals, but it would have been more impressive to actually compensate for having a different amount of an ingredient to have.
