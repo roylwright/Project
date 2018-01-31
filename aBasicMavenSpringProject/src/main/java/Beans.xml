@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+	<bean id="Point10" class="com.menu.pkg.Point"> <!-- this links to point p declaration in ApplicationStart class
+	this tells it which constructor to call to create the bean -->
+	<property name= "x" value= "10"/>
+	<property name= "y" value= "20"/>
+	</bean>
+	
+	</beans>
