@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+	<head>
+		<title>index page intro</title>
+	</head>
+	<body>
+		<h1>Hello!!!</h1>
+		<div th:each="menu : $(theMenu)"></div>
+		<div th:text=$(menu.name)></div>
+		<div th:each="recipe : $(menu.recipes)">
+		<div th:text=$(recipe.name)></div>
+		</div>
+		
+	</body>
+</html>
