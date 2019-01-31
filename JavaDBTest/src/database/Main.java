@@ -17,7 +17,7 @@ public class Main {
 			// replace local host with ip address if not local; last ref is db name
 			String url = "jdbc:mysql://localhost:3306/sakila";
 			String userName = "root";
-			String password = "baby5685";
+			String password = "password";
 			Class.forName(driver);
 			
 			Connection conn = DriverManager.getConnection(url, userName, password);
