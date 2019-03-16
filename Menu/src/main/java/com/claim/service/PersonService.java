@@ -26,10 +26,7 @@ public class PersonService {
 		
 		return personRepository.login(email, password);
 		
-		//return (Person) entityManager.createNativeQuery(loginSql, Person.class)
-				//.setParameter("email", email)
-				//.setParameter("password", password)
-				//.getSingleResult();
+		
 	}
 	@Transactional
 	public Person signUp(Person person) {
